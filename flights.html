@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Flights</h2>
+  <form method="get" class="row g-2 mb-3">
+    <div class="col-auto"><select name="from" class="form-select"><option value=''>From</option>{% for a in airports %}<option value='{{a.id}}'>{{a.code}}</option>{% endfor %}</select></div>
+    <div class="col-auto"><select name="to" class="form-select"><option value=''>To</option>{% for a in airports %}<option value='{{a.id}}'>{{a.code}}</option>{% endfor %}</select></div>
+    <div class="col-auto"><input type="date" name="date" class="form-control"></div>
+    <div class="col-auto"><button class="btn btn-secondary">Search</button></div>
+  </form>
+
+  <table class="table">
+    <thead><tr><th>Flight</th><th>From</th><th>To</th><th>Departs</th><th>Arrives</th><th>Price</th><th>Seats</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for f in flights %}
+        <tr>
+          <td>{{ f.flight_number }}</td>
+          <td>{{ f.departure_airport.code }}</td>
+          <td>{{ f.arrival_airport.code }}</td>
+          <td>{{ f.departure_time }}</td>
+          <td>{{ f.arrival_time }}</td>
+          <td>{{ f.price }}</td>
+          <td>{{ f.seats_available }}</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="{{ url_for('flight_detail', fid=f.id) }}">View</a>
+            {% if current_user.is_authenticated and current_user.role=='admin' %}
+              <form method="post" action="{{ url_for('delete_flight', fid=f.id) }}" style="display:inline">
+                <button class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="8">No flights</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

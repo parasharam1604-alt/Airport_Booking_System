@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Book Flight {{ f.flight_number }}</h2>
+  <form method="post">
+    <div class="mb-3"><label>Passenger Name</label><input class="form-control" name="passenger_name" required></div>
+    <div class="mb-3"><label>Seats</label><input class="form-control" name="seats" type="number" value="1" required></div>
+    <button class="btn btn-primary">Book</button>
+  </form>
+{% endblock %}

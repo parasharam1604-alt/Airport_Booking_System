@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>My Bookings</h2>
+  <table class="table">
+    <thead><tr><th>Passenger</th><th>Flight</th><th>Seats</th><th>Created</th></tr></thead>
+    <tbody>
+      {% for b in bookings %}
+        <tr><td>{{ b.passenger_name }}</td><td>{{ b.flight.flight_number }}</td><td>{{ b.seats }}</td><td>{{ b.created_at }}</td></tr>
+      {% else %}
+        <tr><td colspan="4">No bookings</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

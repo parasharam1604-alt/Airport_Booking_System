@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>New Flight</h2>
+  <form method="post">
+    <div class="mb-3"><label>Flight Number</label><input class="form-control" name="flight_number" required></div>
+    <div class="mb-3">
+      <label>Departure Airport</label>
+      <select name="departure_airport" class="form-select" required>
+        {% for a in airports %}<option value="{{a.id}}">{{a.code}} - {{a.name}}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label>Arrival Airport</label>
+      <select name="arrival_airport" class="form-select" required>
+        {% for a in airports %}<option value="{{a.id}}">{{a.code}} - {{a.name}}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="mb-3"><label>Departure (ISO format)</label><input class="form-control" name="departure_time" type="datetime-local" required></div>
+    <div class="mb-3"><label>Arrival (ISO format)</label><input class="form-control" name="arrival_time" type="datetime-local" required></div>
+    <div class="mb-3"><label>Price</label><input class="form-control" name="price" type="number" step="0.01" required></div>
+    <div class="mb-3"><label>Seats</label><input class="form-control" name="seats" type="number" value="100" required></div>
+    <button class="btn btn-primary">Create Flight</button>
+  </form>
+{% endblock %}

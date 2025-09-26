@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Flight {{ f.flight_number }}</h2>
+  <ul>
+    <li>From: {{ f.departure_airport.code }} - {{ f.departure_airport.name }}</li>
+    <li>To: {{ f.arrival_airport.code }} - {{ f.arrival_airport.name }}</li>
+    <li>Departs: {{ f.departure_time }}</li>
+    <li>Arrives: {{ f.arrival_time }}</li>
+    <li>Price: {{ f.price }}</li>
+    <li>Seats available: {{ f.seats_available }}</li>
+  </ul>
+  {% if current_user.is_authenticated %}
+    <a class="btn btn-primary" href="{{ url_for('book', flight_id=f.id) }}">Book</a>
+  {% else %}
+    <p>Please <a href="{{ url_for('login') }}">login</a> to book.</p>
+  {% endif %}
+{% endblock %}

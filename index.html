@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Welcome to Airport Management</h1>
+  <p>Available airports:</p>
+  <ul>
+    {% for a in airports %}
+      <li>{{ a.code }} — {{ a.name }}, {{ a.city }}</li>
+    {% else %}
+      <li>No airports yet. (Login as admin to add.)</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

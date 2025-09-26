@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Airports</h2>
+  <table class="table">
+    <thead><tr><th>Code</th><th>Name</th><th>City</th>{% if current_user.is_authenticated and current_user.role=='admin' %}<th>Actions</th>{% endif %}</tr></thead>
+    <tbody>
+      {% for a in airports %}
+        <tr>
+          <td>{{ a.code }}</td><td>{{ a.name }}</td><td>{{ a.city }}</td>
+          {% if current_user.is_authenticated and current_user.role=='admin' %}
+            <td>
+              <form method="post" action="{{ url_for('delete_airport', air_id=a.id) }}" style="display:inline">
+                <button type class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</button>
+              </form>
+            </td>
+          {% endif %}
+        </tr>
+      {% else %}
+        <tr><td colspan="4">No airports</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
